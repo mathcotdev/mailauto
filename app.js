@@ -48,9 +48,14 @@ app.post("/mailer", (req, res)=>{
         text : "Votre code de confimation est "+ Rint(10) + "" + Rint(9) + "" + Rint(10) + "" + Rint(10) + "" + Rint(10) + "" + Rint(10)    
     }
     transporter.sendMail(option, (err, info)=>{
-        if(err){console.log(err)}
-        else{console.log("email envoyer"+ info.response)}
+        if(err){
+            console.log(err)
+            res.status(500).json(err)
+        }
+        else{
+            console.log("email envoyer"+ info.response)
+            res.status(200).json({email,name,info: info.response})
+        }
     })
-    res.send("Bonjour "+name+" un code à 6 chiffres vous a été envoyer à "+ email )
  
 })
