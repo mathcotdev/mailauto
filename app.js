@@ -1,22 +1,27 @@
 const express = require("express")
 const app = express()
+require("dotenv").config()
 const cors = require("cors")
 const nodemailer = require("nodemailer")
 const smtp_pool = require("nodemailer-smtp-pool") 
-app.listen(3000, ()=>{console.log("http://localhost:"+3000)})
-app.use(express.static("public"))
-app.use(express.urlencoded({extended:false}))
+const body_parser = require("body-parser") 
+
+app.listen(process.env.PORT || 3000, ()=>{console.log("http://localhost:"+3000)})
+
 app.use(cors())
-app.get("/", (req,res)=>{res.render("index")})
-function Rint(max){
-    return Math.floor(Math.random()* max)
-}
+app.use(body_parser.json())
+
+
 const personnes = [
     {
         name : "Alfred",
         email : "fna.dev.app@gmail.com"
     }
 ]
+app.get("/", (req,res)=>{res.json({message:"Hallo fred", personnes})})
+function Rint(max){
+    return Math.floor(Math.random()* max)
+}
 const transporter = nodemailer.createTransport(smtp_pool({
     host : "smtp-mail.outlook.com",
     secureConnection: false,
@@ -28,7 +33,7 @@ const transporter = nodemailer.createTransport(smtp_pool({
     auth:
     {
         user: "alfredmushagalusa@outlook.com",
-        pass : "11910Fred"
+        pass : process.env.PASSWORT
     }
 }))
 console.log(process.env.PORT)
