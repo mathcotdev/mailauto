@@ -6,7 +6,7 @@ const nodemailer = require("nodemailer")
 const smtp_pool = require("nodemailer-smtp-pool") 
 const body_parser = require("body-parser") 
 
-app.listen(process.env.PORT || 3000, ()=>{console.log("http://localhost:"+3000)})
+app.listen(process.env.PORT || 3002, ()=>{console.log("http://localhost:"+3000)})
 
 app.use(cors())
 app.use(body_parser.json())
